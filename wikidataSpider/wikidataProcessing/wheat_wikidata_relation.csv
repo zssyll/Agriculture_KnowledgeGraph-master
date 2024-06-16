@@ -1,0 +1,115 @@
+HudongItem1,relation,HudongItem2
+红顶乡,instance of,乡
+红顶乡,country,中华人民共和国
+红顶乡,located in the administrative territorial entity,道孚县
+氯化镁,instance of,化合物
+硫代硫酸铵,instance of,化合物
+氯化镁,has part,镁
+硫代硫酸铵,has part,氮
+氯化镁,has part,氯
+普钙,instance of,化合物
+磷酸二氢铵,instance of,化合物
+磷酸脲,instance of,化合物
+磷酸氢二铵,instance of,化合物
+百治磷,instance of,化合物
+硝酸铵,instance of,化合物
+硫代硫酸铵,has part,氢
+磷酸二氢铵,instance of,食品添加剂
+磷酸氢二铵,instance of,食品添加剂
+KCL,instance of,大学院
+硫代硫酸铵,has part,氧
+江苏淮河化工有限公司,country,中华人民共和国
+稻麦立,instance of,阳离子
+绿谷隆,instance of,化合物
+甲磺隆,instance of,化合物
+莠去津,instance of,化合物
+印楝素,instance of,化合物
+西玛津,instance of,化合物
+磷酸氢二铵,instance of,肥料
+硫代硫酸铵,has part,硫
+磷酸二氢铵,has part,氮
+稻麦立,instance of,化合物
+绿谷隆,instance of,除草剂
+甲磺隆,instance of,除草剂
+莠去津,instance of,除草剂
+西玛津,instance of,除草剂
+磷酸氢二铵,has part,氮
+硝酸铵,subject has role,肥料
+DDT,instance of,化合物
+磷酸二氢铵,has part,氢
+莠去津,instance of,杂环化合物
+西草净,instance of,化合物
+戊唑醇,instance of,化合物
+特丁净,instance of,化合物
+三氯杀螨砜,instance of,化合物
+杀虫脒,instance of,化合物
+杀虫畏,instance of,化合物
+三氯硫磷,instance of,化合物
+西玛津,instance of,杂环化合物
+磷酸氢二铵,has part,氢
+硝酸铵,subject has role,爆炸物
+磷酸二氢铵,has part,氧
+田安,sex or gender,男
+特丁净,instance of,除草剂
+磷酸氢二铵,has part,氧
+硝酸铵,has part,氮
+磷酸二氢铵,has part,磷
+特丁净,subject has role,除草剂
+氰草津,instance of,化合物
+六氯苯,instance of,化合物
+氯氰菊酯,instance of,化合物
+邻硝基苯胺,instance of,化合物
+甲胺磷,instance of,化合物
+磷酸氢二铵,has part,磷
+硝酸铵,has part,氢
+世高,sex or gender,男
+氰草津,instance of,除草剂
+刘德军,sex or gender,男
+西玛津,subject has role,除草剂
+硝酸铵,has part,氧
+KCL,country,英国
+世高,country of citizenship,明朝
+刘德军,country of citizenship,中华人民共和国
+硅藻土,subclass of,沉积岩
+百草枯,instance of,化合物
+胺菊酯,instance of,化合物
+烯啶虫胺,instance of,化合物
+四氟苯菊酯,instance of,化合物
+世高,family name,段
+氰草津,subject has role,除草剂
+寡雄腐霉,taxon rank,种
+百草枯,instance of,除草剂
+速灭磷,instance of,化合物
+imidacloprid,instance of,化合物
+二嗪磷,instance of,化合物
+草克乐,instance of,化合物
+丁草胺,instance of,化合物
+六氯苯,has part,碳
+氯氰菊酯,has part,氮
+百草枯,has part,氮
+草克乐,instance of,除草剂
+草丁膦,instance of,除草剂
+晚疫病,taxon rank,种
+丁草胺,instance of,除草剂
+六氯苯,has part,氯
+氯氰菊酯,has part,碳
+百草枯,has part,碳
+莠去津,subject has role,除草剂
+世高,languages spoken written or signed,文言文
+氯氰菊酯,has part,氯
+袁庄村,country,中华人民共和国
+提莫非维小麦,taxon rank,种
+天山赖草,taxon rank,种
+斯佩耳特小麦,subclass of,小麦
+四溴菊酯,subclass of,腈
+丁草胺,subject has role,除草剂
+DDT,has part,碳
+天山赖草,parent taxon,赖草属
+斯佩耳特小麦,taxon rank,种
+DDT,has part,氯
+世高,writing language,文言文
+斯佩耳特小麦,this taxon is source of,小麦
+二嗪磷,has part,磷
+草丁膦,subject has role,除草剂
+二嗪磷,has part,碳
+imidacloprid,medical condition treated,鞭虫病

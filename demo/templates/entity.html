@@ -1,0 +1,170 @@
+{% extends "base.html" %} {% block mainbody %}
+
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <title></title>
+        <meta charset="utf-8"/>
+        <link rel="stylesheet" href="../static/styles/neod3.css">
+        {#        <script src="/static/js/echarts.js"></script>#}
+        {#    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts-all-3.js"></script>#}
+        <style>
+            svg {
+                /*  background: #333;*/
+                width: 100%;
+                height: 100%;
+            }
+
+            .CodeMirror, .CodeMirror-scroll {
+                height: auto;
+            }
+
+            #execute {
+                font-size: 30px;
+                position: absolute;
+                top: 3.6em;
+                right: 10em;
+            }
+
+            #neo4jUrl {
+                position: absolute;
+                right: 5px;
+                top: 1em;
+                z-index: 100;
+                width: 20em;
+            }
+
+            #neo4jUser {
+                position: absolute;
+                right: 9em;
+                top: 4em;
+                z-index: 100;
+                width: 8em;
+            }
+
+            #neo4jPass {
+                position: absolute;
+                right: 5px;
+                top: 4em;
+                z-index: 100;
+                width: 8em;
+            }
+        </style>
+    </head>
+    <title>实体</title>
+    <div class="container">
+        <div class="row">
+            <!--head start-->
+            <div class="col-md-12">
+                {#        <h3 class="page-header"><i class="fa fa-share-alt" aria-hidden="true"></i> 实体查询 </h3>#}
+                <ol class="breadcrumb">
+                    <li><i class="fa fa-home"></i><a href="\">Home</a></li>
+                    <li><i class="fa fa-share-alt" aria-hidden="true"></i>实体查询</li>
+                </ol>
+            </div>
+            <div class="col-md-12">
+                <div class="panel panel-default ">
+                    <header class="panel-heading">
+                        查询条件：
+                    </header>
+                    <div class="panel-body">
+                        <!--搜索框-->
+                        <form method="get" id='searchEntityForm'>
+                            <div>
+                                <div class="input-group">
+                                    <input type="text" id="user_text" name="user_text" class="form-control"
+                                           placeholder="输入实体名称" aria-describedby="basic-addon1">
+                                    <span class="btn btn-primary input-group-addon" type="button"
+                                          id="relationSearchButton" style="background-color:#4592fe ; padding:6px 38px"
+                                          onclick="search()">查询</span>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+
+                <div class="panel panel-default ">
+                    <header class="panel-heading">
+                        关系图 :
+                    </header>
+                    <div class="panel-body ">
+
+
+                        <div>
+                <textarea name="cypher" id="cypher" rows="4" cols="120" data-lang="cypher" class="code form-control">
+                  MATCH (n)-[r]->(m)
+                  RETURN n,r,m
+                  LIMIT 50;
+                  </textarea>
+                            <a href="#" style="display: none;" title="Execute" id="execute"><i
+                                    class="fa fa-play-circle-o"></i></a>
+                        </div>
+
+                        <div role="tabpanel">
+
+                            <!-- Nav tabs -->
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li role="presentation" class="active"><a href="#graph" aria-controls="home" role="tab"
+                                                                          data-toggle="tab">Graph</a></li>
+                                <li role="presentation"><a href="#table" aria-controls="table" role="tab"
+                                                           data-toggle="tab">Table</a></li>
+                            </ul>
+
+                            <!-- Tab panes -->
+                            <div class="tab-content">
+                                <div role="tabpanel" class="tab-pane active" id="graph" style="height: 700px">
+                                    <div class="tab-pane active" id="graph">&nbsp;</div>
+                                </div>
+                                <div role="tabpanel" class="tab-pane" id="table">
+                                    <div id="datatable"></div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <script src="../static/js/jquery-1.8.3.min.js"></script>
+                        <script src="../static/scripts/codemirror.js"></script>
+                        <script src="../static/scripts/codemirror-cypher.js"></script>
+                        <script src="../static/scripts/vendor.js"></script>
+                        <script src="../static/scripts/sweet-alert.min.js"></script>
+                        <script src="../static/scripts/neod3.js"></script>
+                        <script src="../static/scripts/neod3-visualization.js"></script>
+                        <script src="../static/scripts/neo4d3.js"></script>
+                        <script src="../static/scripts/cy2neod3.js"></script>
+                        <script src="../static/scripts/jquery.dataTables.min.js"></script>
+                        <script src="../static/scripts/cypher.datatable.js"></script>
+
+
+                        <script type="text/javascript">
+                            let getQueryType = 1;
+                            $(document).ready(function () {
+                                var config = {}
+                                var connection = function () {
+                                    return {url: "http://localhost:7474", user: "neo4j", pass: "root"};
+                                }
+                                new Cy2NeoD3(config, "graph", "datatable", "cypher", "execute", connection, true);
+                                $(".CodeMirror").hide();
+                                $(".sweet-alert").hide();
+                            });
+
+                            function search() {
+                                $(".sweet-alert").hide();
+                                var value = $("#user_text").val();
+                                console.log(value);
+                                $(".CodeMirror").hide();
+                                var s = "MATCH (n{title:\"" + value + "\"})-[r]-(m)\n" + "RETURN n,r,m\n" + "LIMIT 100";
+                                $("#cypher").text(s);
+                                $("#execute").click();
+                            }
+
+                        </script>
+
+                    </div>
+                </div>
+
+
+            </div>
+
+{% endblock %}

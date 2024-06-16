@@ -1,0 +1,74 @@
+{% extends "base.html" %} {% block mainbody %}
+<head>
+<link rel="stylesheet" href="../static/styles/codemirror.css">
+<link rel="stylesheet" href="../static/styles/codemirror-neo.css">
+<link rel="stylesheet" href="../static/styles/cy2neo.css">
+<link rel="stylesheet" href="../static/styles/neod3.css">
+<link rel="stylesheet" href="../static/styles/datatable.css">
+<link rel="stylesheet" href="../static/styles/vendor.css"> <!-- bootstrap-->
+<link rel="stylesheet" href="../static/styles/sweet-alert.css">
+<link rel="stylesheet" href="../static/styles/gh-fork-ribbon.css">
+<title>可视化-小麦知识图谱</title>
+</head>
+<body>
+  <div style="margin-top: -38px;">
+  <input class="form-control" style="display: none;" type="url" value="http://localhost:7474" id="neo4jUrl"/><br/>
+  <input class="form-control" style="display: none;" type="text" size="8" value="neo4j" id="neo4jUser"/>
+  <input class="form-control" style="display: none;" type="password" size="8" placeholder="password" value="root" id="neo4jPass"/><br/>
+  <textarea name="cypher" id="cypher" rows="4" cols="120" data-lang="cypher" class="code form-control">
+  MATCH (n)-[r]->(m)
+  RETURN n,r,m
+  LIMIT 300;
+  </textarea>
+  <a href="#" title="Execute" id="execute"><i class="fa fa-play-circle-o"></i></a>
+  </div>
+
+<div role="tabpanel">
+
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active"><a href="#graph" aria-controls="home" role="tab" data-toggle="tab">Graph</a></li>
+    <li role="presentation"><a href="#table" aria-controls="table" role="tab" data-toggle="tab">Table</a></li>
+  </ul>
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="graph" style="height: 700px">
+    	<div class="tab-pane active" id="graph">&nbsp;</div>
+    </div>
+    <div role="tabpanel" class="tab-pane" id="table">
+    	<div id="datatable"></div>
+    </div>
+  </div>
+
+{#  <div class="github-fork-ribbon-wrapper right-bottom">#}
+{#      <div class="github-fork-ribbon">#}
+{#          <a href="https://github.com/jexp/cy2neo">Fork me on GitHub</a>#}
+{#      </div>#}
+{#  </div>#}
+
+</div>
+
+<script src="../static/scripts/codemirror.js"></script>
+<script src="../static/scripts/codemirror-cypher.js"></script>
+<script src="../static/scripts/vendor.js"></script>
+<script src="../static/scripts/sweet-alert.min.js"></script>
+<script src="../static/scripts/neod3.js"></script>
+<script src="../static/scripts/neod3-visualization.js"></script>
+<script src="../static/scripts/neo4d3.js"></script>
+<script src="../static/scripts/cy2neod3.js"></script>
+<script src="../static/scripts/jquery.dataTables.min.js"></script>
+<script src="../static/scripts/cypher.datatable.js"></script>
+
+
+
+<script type="text/javascript">
+    let getQueryType = 2;
+    $(document).ready(function() {
+		//todo dynamic configuration
+		var config = {}
+	    var connection = function() { return {url:$("#neo4jUrl").val(), user:$("#neo4jUser").val(),pass:$("#neo4jPass").val()}; }
+		new Cy2NeoD3(config,"graph","datatable","cypher","execute", connection , true);
+	});
+</script>
+{% endblock %}

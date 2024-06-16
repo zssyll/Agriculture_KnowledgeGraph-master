@@ -1,0 +1,218 @@
+{% extends "base.html" %} {% block mainbody %}
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <title></title>
+        <meta charset="utf-8"/>
+        <link rel="stylesheet" href="../static/styles/neod3.css">
+        <script src="/static/js/echarts.js"></script>
+        {#    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts-all-3.js"></script>#}
+
+        <style>
+            svg {
+                /*  background: #333;*/
+                width: 100%;
+                height: 100%;
+            }
+
+            .CodeMirror, .CodeMirror-scroll {
+                height: auto;
+            }
+
+            #execute {
+                font-size: 30px;
+                position: absolute;
+                top: 3.6em;
+                right: 10em;
+            }
+
+            #neo4jUrl {
+                position: absolute;
+                right: 5px;
+                top: 1em;
+                z-index: 100;
+                width: 20em;
+            }
+
+            #neo4jUser {
+                position: absolute;
+                right: 9em;
+                top: 4em;
+                z-index: 100;
+                width: 8em;
+            }
+
+            #neo4jPass {
+                position: absolute;
+                right: 5px;
+                top: 4em;
+                z-index: 100;
+                width: 8em;
+            }
+        </style>
+    </head>
+    <title>关系</title>
+    <div class="container">
+        <div class="row">
+            <!--head start-->
+            <div class="col-md-12">
+                {#        <h3 class="page-header"><i class="fa fa-link" aria-hidden="true"></i> 关系查询 </h3>#}
+                <ol class="breadcrumb">
+                    <li><i class="fa fa-home"></i><a href="\">Home</a></li>
+                    <li><i class="fa fa-link" aria-hidden="true"></i>关系查询</li>
+                </ol>
+            </div>
+
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <header class="panel-heading">
+                        查询条件：
+                    </header>
+                    <div class="panel-body">
+
+                        <form id="searchRelationForm" class="form-inline" style="padding-left: 10% ; padding-right: 10%"
+                              method="get">
+                            <div id="entity1" class="form-group" style="padding: 2%">
+                                <input type="text" id="entity1_text" name="entity1_text" class="form-control"
+                                       placeholder="实体１" aria-describedby="basic-addon1">
+                            </div>
+                            <!--dropdown combobox start-->
+                            <div class="btn-group" style="padding: 2%"><a
+                                    class="btn btn-default dropdown-toggle btn-select form-control"
+                                    data-toggle="dropdown" id="btnCountry">Select a Relation <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#">Instance of</a></li>
+                                    <li><a href="#">Country</a></li>
+                                    <li><a href="#">Taxon rank</a></li>
+                                    <li><a href="#">Subclass of</a></li>
+                                    <li><a href="#">Has part</a></li>
+                                    <li><a href="#">Parent Taxon</a></li>
+                                    <li><a href="#">Sex or gender</a></li>
+                                    <li><a href="#">Part of</a></li>
+                                    <li><a href="#">Different from</a></li>
+                                    <li><a href="#">Found in taxon</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="#"><span class="glyphicon glyphicon-star"></span>Other</a></li>
+                                </ul>
+                            </div>
+                            <!--dropdown combobox end-->
+                            <div id="relation_name" class="form-group hide" style="padding: 2%">
+                                <input type="text" id="relation_name_input" name="relation_name_text"
+                                       class="form-control" placeholder="输入关系名称" aria-describedby="basic-addon1">
+                            </div>
+                            <div id="entity2" class="form-group" style="padding: 2%">
+                                <input type="text" id="entity2_text" name="entity2_text" class="form-control"
+                                       placeholder="实体２" aria-describedby="basic-addon1">
+                            </div>
+                            <div class="btn-group" style="padding: 2%">
+                                <button type="button" id="btnSearch" class="btn btn-primary"
+                                        onclick="search()">Search
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-md-12">
+                <div class="panel panel-default ">
+                    <header class="panel-heading">
+                        关系图 :
+                    </header>
+                    <div class="panel-body ">
+                        <div>
+                <textarea name="cypher" id="cypher" rows="4" cols="120" data-lang="cypher" class="code form-control">
+                  MATCH (n)-[r]->(m)
+                  RETURN n,r,m
+                  LIMIT 50;
+                  </textarea>
+                            <a href="#" style="display: none;" title="Execute" id="execute"><i
+                                    class="fa fa-play-circle-o"></i></a>
+                        </div>
+
+                        <div role="tabpanel">
+
+                            <!-- Nav tabs -->
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li role="presentation" class="active"><a href="#graph" aria-controls="home" role="tab"
+                                                                          data-toggle="tab">Graph</a></li>
+                                <li role="presentation"><a href="#table" aria-controls="table" role="tab"
+                                                           data-toggle="tab">Table</a></li>
+                            </ul>
+
+                            <!-- Tab panes -->
+                            <div class="tab-content">
+                                <div role="tabpanel" class="tab-pane active" id="graph" style="height: 700px">
+                                    <div class="tab-pane active" id="graph">&nbsp;</div>
+                                </div>
+                                <div role="tabpanel" class="tab-pane" id="table">
+                                    <div id="datatable"></div>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                        <script src="../static/scripts/codemirror.js"></script>
+                        <script src="../static/scripts/codemirror-cypher.js"></script>
+                        <script src="../static/scripts/vendor.js"></script>
+                        <script src="../static/scripts<link rel="stylesheet" href="../static/styles/neod3.css">/sweet-alert.min.js"></script>
+                        <script src="../static/scripts/neod3.js"></script>
+                        <script src="../static/scripts/neod3-visualization.js"></script>
+                        <script src="../static/scripts/neo4d3.js"></script>
+                        <script src="../static/scripts/cy2neod3.js"></script>
+                        <script src="../static/scripts/jquery.dataTables.min.js"></script>
+                        <script src="../static/scripts/cypher.datatable.js"></script>
+
+
+                        <script type="text/javascript">
+                            let getQueryType = 1;
+                            $(document).ready(function () {
+                                var config = {}
+                                var connection = function () {
+                                    return {url: "http://localhost:7474", user: "neo4j", pass: "root"};
+                                }
+                                new Cy2NeoD3(config, "graph", "datatable", "cypher", "execute", connection, true);
+                                $(".CodeMirror").hide();
+                                $(".sweet-alert").hide();
+                            });
+
+                            function isUndefined(e) {
+                                if (e == null || e =="" || e == "undefined"){
+                                    return true;
+                                }
+                                return false;
+                            }
+
+                            function search() {
+                                $(".sweet-alert").hide();
+                                var entity1 = $("#entity1_text").val();
+                                var entity2 = $("#entity2_text").val();
+                                var rel = $("#btnCountry").val();
+                                var s;// = "MATCH (n)-[r]->(m)\n" + "RETURN n,r,m\n" + "LIMIT 50";
+                                console.log(entity1);
+                                console.log(entity2);
+
+                                if (!isUndefined(entity1)  && isUndefined(entity2) && isUndefined(rel)){
+                                    s = "MATCH (n1 {title:\"" + entity1 + "\"})- [rel] - (n2) RETURN n1,rel,n2 limit 100";
+                                } else if(isUndefined(entity1)  && !isUndefined(entity2) && isUndefined(rel)) {
+                                    s = "MATCH (n1)- [rel] - (n2 {title:\"" + entity2 + "\"}) RETURN n1,rel,n2 limit 100";
+                                } else if(!isUndefined(entity1)  && !isUndefined(entity2) && isUndefined(rel)){
+                                    s = "MATCH (p1{title:\"" + entity1 + "\"}),(p2{title:\""+ entity2 +"\"}),p=shortestpath((p1)-[*..10]-(p2)) RETURN p";
+                                }
+                                console.log(s);
+                                $(".CodeMirror").hide();
+
+                                $("#cypher").val(s);
+                                $("#execute").click();
+
+                            }
+
+                        </script>
+
+                    </div>
+                </div>
+
+
+            </div>
+{% endblock %}
