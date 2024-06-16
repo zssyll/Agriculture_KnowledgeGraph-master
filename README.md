@@ -12,7 +12,7 @@
 
 # 项目演示
 
-[video(video-2VCfj4Cb-1682068016748)(type-bilibili)(url-https://player.bilibili.com/player.html?aid=612734806)(image-https://img-blog.csdnimg.cn/img_convert/c9137170952b20d6af86eb04ee3e9f47.jpeg)(title-基于知识图谱的玉米品种可视化及问答系统设计与实现)]
+【『基于知识图谱的玉米品种可视化及问答系统设计与实现』】 https://www.bilibili.com/video/BV1Ah4y1p7k6/?share_source=copy_web&vd_source=6944bde61a9d793c9c28b68b25f0a36d
 
 # 界面展示
 **知识图谱展示：**
@@ -26,6 +26,10 @@
 
 # 更多内容
 短时间内完成项目开发，源码来自`GitHub`，我将两个项目合为一个，在数据可视化的基础上加上了模仿`ChatGPT`的聊天界面。后面有时间了，会更新项目开发内容至博客，源码开源至`GIthub`。
+
+# 专栏
+
+http://t.csdnimg.cn/UZtCG
 
 # 源码下载
 [https://download.csdn.net/download/qq_46092061/87919427?spm=1001.2014.3001.5503](https://download.csdn.net/download/qq_46092061/87919427?spm=1001.2014.3001.5503)
